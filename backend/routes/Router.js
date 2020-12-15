@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router();
-const Patient = require('../controller/patient')
-router.post('/signup', Patient.signup);
-router.post('/signin', Patient.signin);
+const User = require('../controller/user')
+const Department = require('../controller/department')
+const auth = require('../middleware/auth')
+router.post('/signup', User.signup);
+router.post('/signin', User.signin);
 
+router.post('/createDep', Department.createDep);
+router.get('/auth',auth, User.auth);
 module.exports = router;
