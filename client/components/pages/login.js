@@ -1,97 +1,89 @@
-import React,{useState} from 'react';
-import { Button ,TextInput} from 'react-native-paper';
+import React, { useState } from 'react';
+import { Button, TextInput } from 'react-native-paper';
 import {
   View,
-  Text,
-  StatusBar,
-  TouchableOpacity,
-  KeyboardAvoidingView,
+  StyleSheet
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
 const Login = (props) => {
-  const [email,setEmail] = useState('');
-  const [password,setPassword]=useState('')
-  
-  
-  const sendCred = async (props)=>{
-    fetch("http://localhost:5000/signin",{
-      method:"POST",
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+
+
+  const sendCred = async (props) => {
+    fetch("http://localhost:5000/signin", {
+      method: "POST",
       headers: {
-       'Content-Type': 'application/json'
-     },
-     body:JSON.stringify({
-       "email":email,
-       "password":password
-     })
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "email": email,
+        "password": password
+      })
     })
-    .then(res=>res.json())
-    .then(async (data)=>{
-           try {
-             await AsyncStorage.setItem('login',data.token)
-             props.navigation.replace("Home")
-           } catch (e) {
-             console.log("error ",e)
-           }
-    })
- }
+      .then(res => res.json())
+      .then(async (data) => {
+        console.log("ccc",data)
+        try {
+          console.log("ccc",data)
+          await AsyncStorage.setItem('login', data.token)
+          props.navigation.replace("Department")
+        } catch (e) {
+          console.log("error ")
+        }
+      })
+  }
 
   return (
-   <> 
-   <KeyboardAvoidingView behavior="position">
-     <StatusBar backgroundColor="blue" barStyle="light-content" />
-      <Text 
-      style={{fontSize:35,marginLeft:18,marginTop:10,color:"#3b3b3b"}}>Login</Text>
-      <View
-      style={{
-        borderBottomColor:"blue",
-        borderBottomWidth:4,
-        borderRadius:10,
-        marginLeft:20,
-        marginRight:150,
-        marginTop:4
-      }}
-       />
-      <TextInput
-        label='Email'
-        mode="outlined"
-        value={email}
-        style={{marginLeft:18,marginRight:18,marginTop:18}}
-        theme={{colors:{primary:"blue"}}}
-        onChangeText={(text)=>setEmail(text)}
-     
-      />
-      <TextInput
-        label='password'
-        mode="outlined"
-        secureTextEntry={true}
-        value={password}
-        onChangeText={(text)=>{setPassword(text)}}
-        style={{marginLeft:18,marginRight:18,marginTop:18}}
-        theme={{colors:{primary:"blue"}}}
-     
-      />
-      <Button 
-        mode="contained"
-        style={{marginLeft:18,marginRight:18,marginTop:18}}
-       onPress={() => sendCred(props)}>
-        Login
+    <>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder='Email'
+          autoCapitalize="none"
+          placeholderTextColor='white'
+          value={email}
+          onChangeText={(text) => { setEmail(text) }}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Password'
+          autoCapitalize="none"
+          placeholderTextColor='white'
+          value={password}
+          onChangeText={(text) => { setPassword(text) }}
+        />
+        <Button
+          mode="contained"
+          onPress={() => sendCred(props)}>
+          Login
       </Button>
-      <TouchableOpacity>
-        <Text
-      style={{
-        fontSize:18,marginLeft:18,marginTop:20
-      }}
-      onPress={()=>props.navigation.replace("Signup")}
-      >dont have a account ?</Text>
-      </TouchableOpacity>
-      
-      </KeyboardAvoidingView>
-   </>
+      </View>
+    </>
   );
 };
 
 
 
 export default Login;
+
+const styles = StyleSheet.create({
+  input: {
+    width: 350,
+    height: 55,
+    backgroundColor: '#42A5F5',
+    margin: 10,
+    padding: 8,
+    color: 'white',
+    borderRadius: 14,
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
