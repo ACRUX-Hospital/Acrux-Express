@@ -1,13 +1,27 @@
-const Department= require('../model/departmentSchema').Department;
 
-exports.createDep= (req, res) => {
-    let newDep = new  Department({
-     title: req.body.title,
-      image: req.body.image,
-      about: req.body.about
+const Department = require('../model/departmentSchema').Department;
+
+// create department
+exports.createDep = (req, res) => {
+  let newDep = new Department({
+    name: req.body.name,
+    image: req.body.image,
+    about: req.body.about
+  })
+  newDep.save((err, department) => {
+    if (err) return res.status(404).json({ error })
+    res.status(201).json({ id: department._id })
+  })
+}
+
+
+// get depaertments
+exports.getDepartments = (req, res) => {
+  Department.find()
+    .exec((err, departments) => {
+      if (err) return res.status(404).json({ success: false })
+      res.status(200).json({ success: true, departments })
     })
-    newDep.save((err, dep) => {
-      if (err) return res.status(404).json({ error })
-      res.status(201).json({ id: dep._id })
-    })
-  }
+}
+
+

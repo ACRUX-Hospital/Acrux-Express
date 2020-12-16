@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const departmentSchema = mongoose.Schema({
-    title: {
+    name: {
         type: String,
         required: true,
         min: 6,
