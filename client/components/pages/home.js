@@ -1,13 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text} from 'react-native';
-export default function Home() {
+import { StyleSheet, View, Text } from 'react-native';
+export default function Home(props) {
   return (
     <View style={styles.container}>
-      <Text>Home</Text> 
-      </View>
-      
-      
- 
+      <Text
+        style={{
+          fontSize: 18, marginLeft: 18, marginTop: 20
+        }}
+        onPress={() => props.navigation.replace("Signup")}
+      >dont have a account ?</Text>      </View>
+
+
+
   );
 }
 
