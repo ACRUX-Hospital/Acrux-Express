@@ -1,24 +1,21 @@
 const mongoose = require('mongoose');
 
 const doctorSchema = mongoose.Schema({
-
-    name: {
-        type: String,
-        required: true,
-        min: 6,
-        max: 255
+    userID: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    departmentID: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Department'
+    }],
+    image: {
+        type: String
     },
-    email: {
-        type: String,
-        required: true,
+    bloodTepe: {
+        type: String
     },
-    password: {
-        type: String,
-        required: true,
-        min: 6,
-        max: 255
-    },
-     phoneNumber: {
+    address: {
         type: String
     }
 })
