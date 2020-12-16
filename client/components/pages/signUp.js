@@ -1,68 +1,91 @@
-import React from 'react'
+import React,{useState} from 'react';
+import { Button,TextInput} from 'react-native-paper';
 import {
-  View,
-  Button,
-  TextInput,
-  StyleSheet
-} from 'react-native'
+  StyleSheet,View,Text
+} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-export default class SignUp extends React.Component {
-  state = {
-    username: '', password: '', email: '', phone_number: ''
+const Signup = (props) => {
+
+  const [email,setEmail] = useState('');
+  const [password,setPassword]=useState('')
+  const [name,setName]=useState('')
+  const [phoneNumber,setPhone]=useState('')
+  // const [role,setRole]=useState('')
+
+
+  const sendCred= async (props)=>{
+     fetch("http://localhost:5000/signup",{
+       method:"POST",
+       headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        "email":email,
+        "password":password,
+        "phoneNumber":phoneNumber,
+        "name":name
+      })
+     })
+     .then(res=>res.json())
+     .then(async (data)=>{
+            try {
+              await AsyncStorage.setItem('login',data.token)
+              props.navigation.replace("Login")
+            } catch (e) {
+              console.log("erro")
+            }
+     })
   }
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val })
-  }
-  signUp = async () => {
-    const { username, password, email, phone_number } = this.state
-    try {
-      // here place your signup logic
-      console.log('user successfully signed up!: ', success)
-    } catch (err) {
-      console.log('error signing up: ', err)
-    }
-  }
- 
-  render() {
-    return (
-      <View style={styles.container}>
+  return (
+       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder='Username'
+          placeholder='name'
           autoCapitalize="none"
           placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('username', val)}
-        />
+          value={name}
+          onChangeText={(text)=>{setName(text)}}
+          />
         <TextInput
           style={styles.input}
           placeholder='Password'
           secureTextEntry={true}
           autoCapitalize="none"
           placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('password', val)}
-        />
+          value={password}
+          onChangeText={(text)=>{setPassword(text)}}
+          />
         <TextInput
           style={styles.input}
           placeholder='Email'
           autoCapitalize="none"
           placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('email', val)}
-        />
+          onChangeText={(text)=>{setEmail(text)}}
+          />
         <TextInput
           style={styles.input}
           placeholder='Phone Number'
           autoCapitalize="none"
           placeholderTextColor='white'
-          onChangeText={val => this.onChangeText('phone_number', val)}
-        />
-        <Button
-          title='Sign Up'
-          onPress={this.signUp}
-        />
-      </View>
-    )
-  }
-}
+          value={phoneNumber}
+          onChangeText={(text)=>{setPhone(text)}}
+          />
+         <Button 
+        mode="contained"
+       onPress={() => sendCred(props)}>
+        signup
+      </Button>
+        <Text
+      onPress={()=>props.navigation.replace("Login")}
+      >already have a account ?</Text>
+        </View>
+  );
+};
+
+
+
+export default Signup;
 
 const styles = StyleSheet.create({
   input: {
