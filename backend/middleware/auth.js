@@ -9,7 +9,7 @@ const auth = async (req, res, next) => {
 
  try {
    // Verify token
-   const decoded = await jwt.verify(token, secret);
+   const decoded = await jwt.verify(token,  process.env.secret);
    const user = await User.findOne({ _id: decoded._id })
    console.log(user)
    req.User = user;

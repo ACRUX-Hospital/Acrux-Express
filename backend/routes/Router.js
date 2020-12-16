@@ -22,4 +22,6 @@ router.get('/getDep',Department.getDepartments)
 
 
 
+// router.post('/createDep', Department.createDep);
+// router.get('/auth',auth, User.auth);
 module.exports = router;
