@@ -8,17 +8,19 @@ import {Chat}  from './components/pages/chat'
 
 
 export default function App() {
-  return (<NativeRouter>
-    <View style={styles.container}>
-      <Text>App</Text>
+  return (
+    <View style={styles.container}><Text>App</Text></View>
+  // <NativeRouter>
+  //   <View style={styles.container}>
+  //     
       
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/sigup" component={Sigup} />
-        <Route path="/chat" component={Chat} />
-        </View>
+  //       <Route exact path="/" component={Home} />
+  //       <Route path="/login" component={Login} />
+  //       <Route path="/sigup" component={Sigup} />
+  //       <Route path="/chat" component={Chat} />
+  //       </View>
 
-      </NativeRouter>
+  //     </NativeRouter>
     
   );
 }
