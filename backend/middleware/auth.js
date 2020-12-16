@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/userSchema').User;
 
 
+
 const auth = async (req, res, next) => {
  const token = req.header('login');
  if (!token)
@@ -9,7 +10,8 @@ const auth = async (req, res, next) => {
 
  try {
    // Verify token
-   const decoded = await jwt.verify(token,  process.env.secret);
+   const decoded = await jwt.verify(token,process.env.secret);
+
    const user = await User.findOne({ _id: decoded._id })
    console.log(user)
    req.User = user;
