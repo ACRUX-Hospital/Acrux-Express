@@ -33,15 +33,18 @@ exports.signup = async (req, res) => {
 }
 
 exports.signin = async (req, res) => {
+    console.log(req.body)
 
     const user = await User.findOne({ email: req.body.email })
+    console.log(user)
 
     if (user) {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) return res.status(400).send("password is wrong");
 
         const token = await jwt.sign({ _id: user._id }, process.env.secret);
-        res.send(token)
+    
+        // res.send(token)
         res.header("token", token).json({
             sucess: true,
             token: token
