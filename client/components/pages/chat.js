@@ -1,21 +1,116 @@
-import React from 'react';
-import { StyleSheet, View, Text} from 'react-native';
-export default function Login() {
-  return (
-    <View style={styles.container}>
-      <Text>Chat</Text> 
-      </View>
-      
-      
- 
-  );
-}
+import React, { useState, useEffect } from 'react';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+import io from "socket.io-client";
+import { SafeAreaView, View, Text, Button, KeyboardAvoidingView } from "react-native"
+import { Input } from 'react-native-elements';
+import MessageBubble from "./oneChat"
+// import{keyboardawarescrollview} from "react-native-keyboard-aware-scroll-view"
+export default function Chat() {
+  const [messages, setMessages] = useState([])
+  const [message, setMessage] = useState('')
+  const [socket, setSocket] = useState(null)
+  const [room, setRoom] = useState('my-room')
+
+  React.useEffect(() => {
+    var newSocket = io.connect('http://localhost:5000');
+    newSocket.on("connection", () => {
+      console.log("connected")
+    })
+
+    setSocket(newSocket)
+  }, [])
+
+
+  const handleSubmit = (e) => {
+    console.log(socket)
+    e.preventDefault()
+    if (socket && message) {
+      socket.emit("messages", {
+        room,
+        message: message,
+      });
+    }
+    // console.log(message)
+    setMessage("")
   }
-});
+
+  React.useEffect(() => {
+    console.log('dddd', socket)
+    if (socket) {
+      socket.on("newMessage", ({ message }) => {
+        console.log('emmited message', message)
+        const newMessages = [...messages, message];
+        console.log(newMessages)
+        setMessages(newMessages);
+      });
+    }
+  }, [messages, socket]);
+
+
+  React.useEffect(() => {
+    if (socket) {
+      socket.emit("join", {
+        room,
+      });
+      socket.on("data", (data) => {
+        console.log("dataaaaaaa", data)
+      })
+    }
+
+
+    return () => {
+      //Component Unmount
+      if (socket) {
+        socket.emit("leaveRoom", {
+          room,
+        });
+      }
+    };
+    //eslint-disable-next-line
+  }, [socket]);
+
+
+  return (
+
+    <SafeAreaView>
+      {/* <KeyboardAvoidingView
+            style={{flex:1}}
+            behavior="padding"
+          > */}
+
+      {messages && messages.map((message, i) => {
+
+        return <MessageBubble text={message} key={i} />
+      })}
+      <MessageBubble
+        mine
+        text="HELOOO"
+      />
+      <MessageBubble
+        text="HELOOO"
+      />
+      <View style={{ flex: 1, flexDirection: 'row', alignItems: "stretch" }}>
+        <View style={{ width: 300, height: 50 }}>
+          <Input
+            placeholder='type message ...'
+            onChangeText={text => setMessage(text)}
+            value={message}
+          />
+        </View>
+        <View style={{ width: 100, height: 50, margin: 5 }}>
+          <Button
+            onPress={handleSubmit}
+            title="SEND"
+            color="#841584"
+            accessibilityLabel="Learn more about this purple button"
+          />
+        </View>
+      </View>
+      {/* </KeyboardAvoidingView> */}
+    </SafeAreaView>
+
+
+
+  );
+
+}
