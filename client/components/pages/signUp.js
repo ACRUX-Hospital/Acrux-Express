@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 
 export default class SignUp extends React.Component {
+  
   state = {
     username: '', password: '', email: '', phone_number: ''
   }
@@ -58,6 +59,8 @@ export default class SignUp extends React.Component {
         <Button
           title='Sign Up'
           onPress={this.signUp}
+          // onPress={()=>props.navigation.replace("Login")}
+
         />
       </View>
     )
