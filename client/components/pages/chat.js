@@ -10,9 +10,10 @@ export default function Chat() {
   const [message, setMessage] = useState('')
   const [socket, setSocket] = useState(null)
   const [room, setRoom] = useState('my-room')
+  const [trial, setTrial] = useState('')
 
   React.useEffect(() => {
-    var newSocket = io.connect('http://localhost:5000');
+    var newSocket = io.connect('http://192.168.0.108:5000');
     newSocket.on("connection", () => {
       console.log("connected")
     })
@@ -20,9 +21,27 @@ export default function Chat() {
     setSocket(newSocket)
   }, [])
 
+  const onTry = () => {
+    const obj = { heree: 'tryyyy me' }
+
+    const requestOptions = {
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(obj)
+    };
+    fetch('http://192.168.0.108:5000/trial', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch((err) => console.log(err))
+  }
+
 
   const handleSubmit = (e) => {
-    console.log(socket)
+    // console.log(socket)
     e.preventDefault()
     if (socket && message) {
       socket.emit("messages", {
@@ -35,7 +54,7 @@ export default function Chat() {
   }
 
   React.useEffect(() => {
-    console.log('dddd', socket)
+    // console.log('dddd', socket)
     if (socket) {
       socket.on("newMessage", ({ message }) => {
         console.log('emmited message', message)
@@ -95,6 +114,11 @@ export default function Chat() {
             placeholder='type message ...'
             onChangeText={text => setMessage(text)}
             value={message}
+          />
+          <Input
+            placeholder='type message ...'
+            onChangeText={text => onTry()}
+            value={trial}
           />
         </View>
         <View style={{ width: 100, height: 50, margin: 5 }}>

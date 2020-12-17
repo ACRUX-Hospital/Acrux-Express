@@ -17,19 +17,27 @@ var cors = require('cors')
 const server = require('http').createServer(app);
 
  
-// const options = {
-//   cors: {
-//     origin: "*",
-//     methods: ["GET", "POST"]
-//   }
-// };
-var io = require('socket.io').listen(server)
+const options = {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+};
+var io = require('socket.io')(server,options)
 
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // app.use(express.static(__dirname + '/../client/public'));
 app.use(cors())
+
+app.post('/trial' , (req,res) => {
+  // console.log(req)
+  console.log(req.body)
+  res.json({success:true})
+})
+
+
 io.on('connection', (socket) => {
 
 
