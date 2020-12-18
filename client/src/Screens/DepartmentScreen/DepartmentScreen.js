@@ -10,7 +10,7 @@ import { floor } from 'react-native-reanimated'
 const DepartmentScreen = () => {
 
     const [departments, setDepartments] = useState([])
-
+    // console.log(departments)
     useEffect(() => {
         getDepartments()
     }, [])
