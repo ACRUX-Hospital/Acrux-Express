@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import { SafeAreaView, View, Text, Button, KeyboardAvoidingView, ScrollView } from "react-native"
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
+import Local_IP from '../../helpers/Local_IP'
 // import{keyboardawarescrollview} from "react-native-keyboard-aware-scroll-view"
 export default function Chat() {
   const [messages, setMessages] = useState([])
@@ -13,13 +14,16 @@ export default function Chat() {
 
   const myScrollView = React.createRef()
   React.useEffect(() => {
-    var newSocket = io.connect('http://192.168.0.109:5000');
+
+    var newSocket = io.connect(`${Local_IP}`);
+
     newSocket.on("connection", () => {
       console.log("connected")
     })
 
     setSocket(newSocket)
   }, [])
+
 
   const handleSubmit = (e) => {
     // console.log(socket)
