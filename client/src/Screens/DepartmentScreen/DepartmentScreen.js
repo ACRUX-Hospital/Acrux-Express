@@ -4,6 +4,7 @@ import DepartmentCard from './DepartmentCard'
 import styles from './styles'
 
 import Local_IP from '../../../helpers/Local_IP'
+import { floor } from 'react-native-reanimated'
 
 
 const DepartmentScreen = () => {
@@ -12,7 +13,7 @@ const DepartmentScreen = () => {
 
     useEffect(() => {
         getDepartments()
-    },[])
+    }, [])
 
     const getDepartments = () => {
         const requestOptions = {
@@ -36,8 +37,9 @@ const DepartmentScreen = () => {
 
         <View >
             <FlatList
+                showsVerticalScrollIndicator={false}
                 data={departments}
-                renderItem={({ item }) => <DepartmentCard department={item}/>}
+                renderItem={({ item }) => <DepartmentCard department={item} />}
                 keyExtractor={(item, index) => index.toString()}
             />
         </View>

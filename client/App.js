@@ -9,7 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/Screens/HomeScreen/HomeScreen'
 import DepartmentScreen from './src/Screens/DepartmentScreen/DepartmentScreen'
-import { View} from 'react-native';
+import { View, StatusBar } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <View>
 
-
+      {/* <StatusBar barStyle="dark-content" /> */}
       <HomeScreen />
       <DepartmentScreen />
     </View>
