@@ -13,7 +13,7 @@ export default function Chat() {
   const [trial, setTrial] = useState('')
 
   React.useEffect(() => {
-    var newSocket = io.connect('http://192.168.0.108:5000');
+    var newSocket = io.connect('http://192.168.1.107:5000');
     newSocket.on("connection", () => {
       console.log("connected")
     })
