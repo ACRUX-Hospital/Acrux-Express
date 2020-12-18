@@ -21,6 +21,8 @@ router.post('/createDep', Department.createDep);
 router.get('/getDep',Department.getDepartments)
 
 
+router.post
+
 
 // router.post('/createDep', Department.createDep);
 // router.get('/auth',auth, User.auth);
