@@ -13,7 +13,9 @@ mongoose.connect(process.env.DB_CONNECT,
 
 const express = require('express')
 const app = express()
-var cors = require('cors')
+var cors = require('cors');
+const { Chatroom, } = require('./model/chatRoomSchema');
+const {Chat}=require("./model/chatSchema")
 const server = require('http').createServer(app);
 
  
@@ -42,15 +44,29 @@ io.on('connection', (socket) => {
 
 
   console.log(`New connection ! + ${socket.id}`)
-  socket.on('join', ({ room }) => {
+  socket.on('join', async({ room }) => {
     console.log(room)
     socket.join(room)
+    let dbRoom=await Chatroom.findOne({roomName:room}).populate('messages')
+    if(!dbRoom){
+      let newRoom=new Chatroom({roomName:room})
+      await newRoom.save()
+
+    }else{
+      // let roomMessages= await dbRoom.populate('messages')
+      socket.emit("data",  {messages:dbRoom.messages} )
+    }
     console.log(`joined at ${room}`)
-    socket.emit("data", { "asem": "hello" })
   })
-  socket.on('messages', ({ message, room }) => { // to get the data from front emit function
+
+
+  socket.on('messages', async({ message, room }) => { // to get the data from front emit function
     console.log(message, room)
-    io.to(room).emit('newMessage', { message })
+    let chat =new Chat({roomID:room,UserName:"asem",message})
+    let chatObj=await chat.save()
+    let roomName=await Chatroom.findOne({roomName:room})
+    await Chatroom.updateOne({_id:roomName._id},{messages:[...roomName.messages,chatObj._id]})
+    io.to(room).emit('newMessage', chat)
   })
   socket.on('disconnect', () => {
     console.log('user has left')
