@@ -1,10 +1,10 @@
+
 import React from 'react';
 // import { StyleSheet } from 'react-native';
 import Home from './components/pages/home'
 import Login from './components/pages/login'
-import Signup from './components/pages/signUp'
 import Chat from "./components/pages/chat"
-import Department from './components/pages/department'
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -18,6 +18,7 @@ const Tap = createMaterialTopTabNavigator()
 export default function App() {
   return (
 
+
     <>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
@@ -28,6 +29,7 @@ export default function App() {
         </Tap.Navigator>
       </NavigationContainer>
     </>
+
 
   );
 }

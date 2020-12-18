@@ -5,8 +5,9 @@ const Patient = require('../model/patientSchema').Patient;
 exports.createPat = (req, res) => {
   let newPat = new Patient({
     image: req.body.image,
-    bloodType: req.body.bloodType,
-    address: req.body.address
+    bloodTepe: req.body.bloodType,
+    address: req.body.address,
+    userID:req.body.userID
   })
   newPat.save((err, patient) => {
     if (err) return res.status(404).json({ error })
