@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import io from "socket.io-client";
-import { SafeAreaView, View, Text, Button, KeyboardAvoidingView } from "react-native"
+import { SafeAreaView, View, Text, Button, KeyboardAvoidingView, ScrollView } from "react-native"
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
 import Local_IP from '../../helpers/Local_IP'
@@ -10,35 +10,19 @@ export default function Chat() {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
   const [socket, setSocket] = useState(null)
-  const [room, setRoom] = useState('my-room')
-  const [trial, setTrial] = useState('')
+  const [room, setRoom] = useState('sec-room')
 
+  const myScrollView = React.createRef()
   React.useEffect(() => {
+
     var newSocket = io.connect(`${Local_IP}`);
+
     newSocket.on("connection", () => {
       console.log("connected")
     })
 
     setSocket(newSocket)
   }, [])
-
-  const onTry = () => {
-    const obj = { heree: 'tryyyy me' }
-
-    const requestOptions = {
-      method: 'POST',
-
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-      body: JSON.stringify(obj)
-    };
-    fetch(`${Local_IP}/trial`, requestOptions)
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch((err) => console.log(err))
-  }
 
 
   const handleSubmit = (e) => {
@@ -50,14 +34,14 @@ export default function Chat() {
         message: message,
       });
     }
-    // console.log(message)
+    // myScrollView.scrollToEnd({animated: true})
     setMessage("")
   }
 
   React.useEffect(() => {
     // console.log('dddd', socket)
     if (socket) {
-      socket.on("newMessage", ({ message }) => {
+      socket.on("newMessage", (message) => {
         console.log('emmited message', message)
         const newMessages = [...messages, message];
         console.log(newMessages)
@@ -72,70 +56,57 @@ export default function Chat() {
       socket.emit("join", {
         room,
       });
-      socket.on("data", (data) => {
-        console.log("dataaaaaaa", data)
+      socket.on("data", ({ messages }) => {
+
+        setMessages(messages)
+        console.log("dataaaaaaa", messages)
       })
     }
-
-
     return () => {
-      //Component Unmount
       if (socket) {
         socket.emit("leaveRoom", {
           room,
         });
       }
     };
-    //eslint-disable-next-line
   }, [socket]);
-
 
   return (
 
-    <SafeAreaView>
-      {/* <KeyboardAvoidingView
-            style={{flex:1}}
-            behavior="padding"
-          > */}
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+      // behavior="padding"
+      >
+        <ScrollView ref={myScrollView}>
 
-      {messages && messages.map((message, i) => {
+          <View style={{ flex: 1 }}>
+            {messages && messages.map((message, i) => {
+              {/* if() */ }
+              return <MessageBubble text={message.message} key={i} />
+            })}
+          </View>
+        </ScrollView>
 
-        return <MessageBubble text={message} key={i} />
-      })}
-      <MessageBubble
-        mine
-        text="HELOOO"
-      />
-      <MessageBubble
-        text="HELOOO"
-      />
-      <View style={{ flex: 1, flexDirection: 'row', alignItems: "stretch" }}>
-        <View style={{ width: 300, height: 50 }}>
-          <Input
-            placeholder='type message ...'
-            onChangeText={text => setMessage(text)}
-            value={message}
-          />
-          <Input
-            placeholder='type message ...'
-            onChangeText={text => onTry()}
-            value={trial}
-          />
+        <View style={{ flexDirection: 'row', alignItems: "center" }}>
+          <View style={{ flex: 3, paddingTop: 15 }}>
+            <Input
+              placeholder='type message ...'
+              onChangeText={text => setMessage(text)}
+              value={message}
+            />
+          </View>
+          <View style={{ flex: 1, borderRadius: 30 }}>
+            <Button
+              onPress={handleSubmit}
+              title="SEND"
+              color="#841584"
+              accessibilityLabel="Learn more about this purple button"
+            />
+          </View>
         </View>
-        <View style={{ width: 100, height: 50, margin: 5 }}>
-          <Button
-            onPress={handleSubmit}
-            title="SEND"
-            color="#841584"
-            accessibilityLabel="Learn more about this purple button"
-          />
-        </View>
-      </View>
-      {/* </KeyboardAvoidingView> */}
+      </KeyboardAvoidingView>
     </SafeAreaView>
-
-
-
   );
 
 }
