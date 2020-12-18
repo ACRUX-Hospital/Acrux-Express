@@ -13,7 +13,7 @@ router.post('/signin', User.signin);
 router.get('/auth',auth, User.auth);
 //Doctor
 router.post('/createDoc', Doctor.createDoc);
-// router.get('/getDoc',Doctor.FindAllDocById)
+router.get('/getDoc',Doctor.FindAllDocById)
 //Patient
 router.post('/createPat', Patient.createPat);
 //Department

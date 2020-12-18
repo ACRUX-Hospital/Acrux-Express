@@ -5,8 +5,10 @@ import Chat from "./src/Screens/Chat/chat"
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Stacks from './src/Navigations/Stacks'
 import HomeScreen from './src/Screens/HomeScreen/HomeScreen'
 import DepartmentScreen from './src/Screens/DepartmentScreen/DepartmentScreen'
+import DoctorScreen from './src/Screens/DoctorScreen/DoctorScreen'
 import { View, StatusBar } from 'react-native';
 
 const Stack = createStackNavigator();
@@ -18,13 +20,15 @@ export default function App() {
 
     <>
       <StatusBar barStyle="dark-content" />
-      <NavigationContainer>
+      {/* <NavigationContainer>
         <Tap.Navigator>
           <Tap.Screen name='Home' component={HomeScreen} />
           <Tap.Screen name='Departments' component={DepartmentScreen} />
           <Tap.Screen name='chat' component={Chat} />
+          <Tap.Screen name='doctor' component={DoctorScreen} />
         </Tap.Navigator>
-      </NavigationContainer>
+      </NavigationContainer> */}
+      <Stacks />
     </>
 
 
