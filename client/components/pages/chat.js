@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import { SafeAreaView, View, Text, Button, KeyboardAvoidingView } from "react-native"
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
+import Local_IP from '../../helpers/Local_IP'
 // import{keyboardawarescrollview} from "react-native-keyboard-aware-scroll-view"
 export default function Chat() {
   const [messages, setMessages] = useState([])
@@ -13,7 +14,7 @@ export default function Chat() {
   const [trial, setTrial] = useState('')
 
   React.useEffect(() => {
-    var newSocket = io.connect('http://192.168.1.107:5000');
+    var newSocket = io.connect(`${Local_IP}`);
     newSocket.on("connection", () => {
       console.log("connected")
     })
@@ -33,7 +34,7 @@ export default function Chat() {
       },
       body: JSON.stringify(obj)
     };
-    fetch('http://192.168.0.108:5000/trial', requestOptions)
+    fetch(`${Local_IP}/trial`, requestOptions)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch((err) => console.log(err))
