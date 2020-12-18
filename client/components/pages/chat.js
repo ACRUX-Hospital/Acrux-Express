@@ -9,7 +9,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
   const [socket, setSocket] = useState(null)
-  const [room, setRoom] = useState('sec-room')
+  const [room, setRoom] = useState('my-room')
 
   const myScrollView = React.createRef()
   React.useEffect(() => {
@@ -79,7 +79,7 @@ export default function Chat() {
           <View style={{ flex: 1 }}>
             {messages && messages.map((message, i) => {
               {/* if() */ }
-              return <MessageBubble text={message.message} key={i} />
+              return <MessageBubble text={message.message} mine key={i} />
             })}
           </View>
         </ScrollView>
