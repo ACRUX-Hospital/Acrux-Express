@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import { Button } from 'react-native-paper';
 import io from "socket.io-client";
-import { SafeAreaView, View, Text, Button, KeyboardAvoidingView, ScrollView } from "react-native"
+import { SafeAreaView, View,KeyboardAvoidingView, ScrollView,Icon } from "react-native"
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
 import Local_IP from '../../../helpers/Local_IP'
@@ -96,13 +96,16 @@ export default function Chat() {
               value={message}
             />
           </View>
-          <View style={{ flex: 1, borderRadius: 30 }}>
-            <Button
+          <View style={{ flex: 1,alignItems:"center",paddingStart:0 ,margin:0,paddingTop:18}}>
+            {/* <Button
               onPress={handleSubmit}
               title="SEND"
               color="#841584"
               accessibilityLabel="Learn more about this purple button"
-            />
+            /> */}
+            <Button  icon="send" onPress={handleSubmit}>
+            send
+            </Button>
           </View>
         </View>
       </KeyboardAvoidingView>
