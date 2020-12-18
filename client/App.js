@@ -7,48 +7,26 @@ import Chat from "./components/pages/chat"
 import Department from './components/pages/department'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HomeScreen from './src/Screens/HomeScreen/HomeScreen'
 import DepartmentScreen from './src/Screens/DepartmentScreen/DepartmentScreen'
 import { View, StatusBar } from 'react-native';
 
 const Stack = createStackNavigator();
-
+const Tap = createMaterialTopTabNavigator()
 
 export default function App() {
   return (
-    <View>
 
-      {/* <StatusBar barStyle="dark-content" /> */}
-      <HomeScreen />
-      <DepartmentScreen />
-    </View>
-    // <NavigationContainer>
-
-    //   <Stack.Navigator>
-    //     <Stack.Screen
-    //       name="Chat"
-    //       component={Chat}
-    //     />
-    //     <Stack.Screen
-    //       name="Home"
-    //       component={Home}
-    //     />
-    //     <Stack.Screen
-    //       name="Signup"
-    //       component={Signup}
-    //     />
-    //     <Stack.Screen
-    //       name="Login"
-    //       component={Login}
-    //     />
-    //     <Stack.Screen
-    //       name="Department"
-    //       component={Department}
-    //     />
-    //   </Stack.Navigator>
-
-    // </NavigationContainer>
-
+    <>
+      <StatusBar barStyle="dark-content" />
+      <NavigationContainer>
+        <Tap.Navigator>
+          <Tap.Screen name='Home' component={HomeScreen} />
+          <Tap.Screen name='Departments' component={DepartmentScreen} />
+        </Tap.Navigator>
+      </NavigationContainer>
+    </>
 
   );
 }
