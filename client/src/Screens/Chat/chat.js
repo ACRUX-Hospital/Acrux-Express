@@ -5,6 +5,7 @@ import { SafeAreaView, View,KeyboardAvoidingView, ScrollView,Icon } from "react-
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
 import Local_IP from '../../../helpers/Local_IP'
+import SendIcon from "react-native-vector-icons/Ionicons"
 // import{keyboardawarescrollview} from "react-native-keyboard-aware-scroll-view"
 export default function Chat() {
   const [messages, setMessages] = useState([])
@@ -78,7 +79,9 @@ export default function Chat() {
         style={{ flex: 1 }}
       // behavior="padding"
       >
-        <ScrollView ref={myScrollView}>
+        <ScrollView ref={myScrollView}
+        
+        >
 
           <View style={{ flex: 1 }}>
             {messages && messages.map((message, i) => {
@@ -103,9 +106,10 @@ export default function Chat() {
               color="#841584"
               accessibilityLabel="Learn more about this purple button"
             /> */}
-            <Button  icon="send" onPress={handleSubmit}>
+            {/* <Button  icon="send" onPress={handleSubmit}>
             send
-            </Button>
+            </Button> */}
+            <SendIcon name="ios-send-sharp" size={30} color="#1294f8"/>
           </View>
         </View>
       </KeyboardAvoidingView>
