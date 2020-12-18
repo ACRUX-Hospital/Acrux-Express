@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import { SafeAreaView, View, Text, Button, KeyboardAvoidingView, ScrollView } from "react-native"
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
-import Local_IP from '../../helpers/Local_IP'
+import Local_IP from '../../../helpers/Local_IP'
 // import{keyboardawarescrollview} from "react-native-keyboard-aware-scroll-view"
 export default function Chat() {
   const [messages, setMessages] = useState([])
