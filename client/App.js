@@ -24,6 +24,7 @@ export default function App() {
         <Tap.Navigator>
           <Tap.Screen name='Home' component={HomeScreen} />
           <Tap.Screen name='Departments' component={DepartmentScreen} />
+          <Tap.Screen name='chat' component={Chat} />
         </Tap.Navigator>
       </NavigationContainer>
     </>
