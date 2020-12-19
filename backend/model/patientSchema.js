@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const patientSchema = mongoose.Schema({
-    userID: [{
+    userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }],
+    },
     image: {
         type: String
     },

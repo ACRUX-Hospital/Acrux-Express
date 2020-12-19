@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const doctorSchema = mongoose.Schema({
-    userID: [{
+    userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }],
-    departmentID: [{
+    },
+    departmentID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Department'
-    }],
+    },
     image: {
         type: String
     },
