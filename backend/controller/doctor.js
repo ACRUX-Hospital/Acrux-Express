@@ -15,15 +15,14 @@ exports.createDoc = (req, res) => {
   })
 }
 
-// //find  doctors by  dep id
-// exports.FindAllDocById = (req, res) => {
-//   Doctor.find({ departmentID: req.body.departmentID })
-//     .populate('departmentID')
-//     .exec((err, result) => {
-//       if (err) return res.status(404).json({ success: false })
-//       res.json(result)
-//     })
-// }
+//find  doctors by  dep id
+exports.FindAllDocById = (req, res) => {
+  Doctor.find().populate('userID')
+    .exec((err, doctors) => {
+      if (err) return res.status(404).json({ success: false })
+      res.json({success: true,doctors})
+    })
+}
 
 
 

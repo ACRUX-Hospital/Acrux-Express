@@ -25,11 +25,11 @@ const Login = (props) => {
     })
       .then(res => res.json())
       .then(async (data) => {
-        console.log("ccc",data)
+        console.log("ccc", data)
         try {
-          console.log("ccc",data)
+          console.log("ccc", data)
           await AsyncStorage.setItem('login', data.token)
-          props.navigation.replace("Department")
+          props.navigation.replace("home")
         } catch (e) {
           console.log("error ")
         }
@@ -59,6 +59,12 @@ const Login = (props) => {
           mode="contained"
           onPress={() => sendCred(props)}>
           Login
+      </Button>
+      <Button
+          mode="contained"
+          style={{marginTop:5}}
+          onPress={() =>  props.navigation.navigate("Signup")}>
+          Sign Up
       </Button>
       </View>
     </>
