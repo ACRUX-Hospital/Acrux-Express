@@ -4,6 +4,9 @@ import styles from './styles'
 
 const DepartmentCard = ({ department,navigation}) => {
     // console.log(department)
+    console.log(navigation)
+
+
     return (
         <View style={styles.container}>
             <Image
@@ -12,9 +15,9 @@ const DepartmentCard = ({ department,navigation}) => {
                 title="Go to DoctorDepartment page "
                 onPress={() => {
                     navigation.navigate('DoctorDepartment', {
-                        itemId:department._id,
-                    });
-                }}
+                         itemId:department._id,
+                     });
+                 }}
             />
             {/* Name */}
             <Text

@@ -4,12 +4,12 @@ import { View, FlatList } from 'react-native'
 import DoctorCard from '../DoctorScreen/DoctorCard'
 import Local_IP from '../../../helpers/Local_IP'
 
-const DoctorDepartmentScreen = (props) => {
-    const [doctors, setDoctors] = useState([])
-    
+const DoctorDepartmentScreen = ({route,navigation}) => {
+    const [result, setResult] = useState([])
+    const { itemId} = route.params;
+
     useEffect(() => {
-        const departmentId = this.props.match.params.id
-        getDoctors({_id: departmentId})
+        getDoctors({departmentID:itemId})
     }, [])
 
     const getDoctors = (obj) => {
@@ -23,7 +23,8 @@ const DoctorDepartmentScreen = (props) => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    setDoctors(data.doctors)
+                    setResult(data.result)
+                    console.log("fffffff",data)
                 }
             });
     }
@@ -31,13 +32,14 @@ const DoctorDepartmentScreen = (props) => {
     <View>
         <FlatList
                 showsVerticalScrollIndicator={false}
-                data={doctors}
+                data={result}
                 renderItem={({ item }) => <DoctorCard doctor={item} />}
                 keyExtractor={(item, index) => index.toString()}
             />
     </View>
 
     )
+    
 }
 
 export default DoctorDepartmentScreen
