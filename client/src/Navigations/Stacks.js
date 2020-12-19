@@ -6,11 +6,11 @@ import Signup from '../Screens/LogInSignUp/signUp'
 import DoctorDepartmentScreen from '../Screens/DoctorDepartmentScreen/DoctorDepartment'
 
 import DepartmentScreen from '../Screens/DepartmentScreen/DepartmentScreen'
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 const Stack = createStackNavigator();
 
-const Stacks = ({currentUser}) => {
-    console.log("dddddddddddddddddddddd",currentUser)
+const Stacks = ({ currentUser }) => {
+    console.log("currnetUser", currentUser)
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -25,8 +25,8 @@ const Stacks = ({currentUser}) => {
     )
 }
 
-const mapStateToProps=({user:{currentUser}})=>{
-    return{
+const mapStateToProps = ({ user: { currentUser } }) => {
+    return {
         currentUser
     }
 }
