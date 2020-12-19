@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const doctorSchema = mongoose.Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     departmentID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Department'
+        ref: 'department'
     },
     image: {
         type: String
@@ -17,7 +17,11 @@ const doctorSchema = mongoose.Schema({
     },
     address: {
         type: String
-    }
+    },
+    patients:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'patient'
+    }]
 })
 
 

@@ -1,14 +1,10 @@
-
-
 const Doctor = require('../model/doctorSchema').Doctor;
 
 // create doctor
 exports.createDoc = (req, res) => {
   let newDoc = new Doctor({
-    userID:req.body.userID,
-    departmentID:req.body.departmentID,
     image: req.body.image,
-    bloodTepe: req.body.bloodTepe,
+    bloodType: req.body.bloodType,
     address: req.body.address
   })
   newDoc.save((err, doctor) => {
@@ -17,26 +13,11 @@ exports.createDoc = (req, res) => {
   })
 }
 
-//find  doctors 
-exports.FindAllDoc = (req, res) => {
-    Doctor.find()
-    .exec( (err, doctor) => {
-      if(err) return res.status(401).success({success:false,err})
-      res.status(200).json({ doctor })
-    }) 
+//find  doctors by  dep id
+exports.FindAllDocById = (req, res) => {
+  Doctor.find().populate('userID')
+    .exec((err, doctors) => {
+      if (err) return res.status(404).json({ success: false })
+      res.json({success: true,doctors})
+    })
 }
-
-// //find  doctors by  dep id
-// exports.getDoctors=(req, res) => {
-//   Doctor.find({ departmentID: req.body.departmentID})
-//   console.log("gggggggggg")
-//     .populate('departmentID')
-//     .exec((err, doctor) => {
-//       if (err) return res.status(404).json({ success: false,err })
-//       console.log("fffffffff")
-//       res.json({doctor})
-//     })
-// }
-
-
-

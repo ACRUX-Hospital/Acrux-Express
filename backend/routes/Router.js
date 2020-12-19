@@ -13,8 +13,7 @@ router.post('/signin', User.signin);
 router.get('/auth',auth, User.auth);
 //Doctor
 router.post('/createDoc', Doctor.createDoc);
-router.get('/getDoc',Doctor.FindAllDoc)
-// router.post('/getDoctor',Doctor.getDoctors)
+router.get('/getDoc',Doctor.FindAllDocById)
 //Patient
 router.post('/createPat', Patient.createPat);
 //Department
@@ -22,7 +21,4 @@ router.post('/createDep', Department.createDep);
 router.get('/getDep',Department.getDepartments)
 
 
-
-// router.post('/createDep', Department.createDep);
-// router.get('/auth',auth, User.auth);
 module.exports = router;

@@ -1,4 +1,3 @@
-
 const Department = require('../model/departmentSchema').Department;
 
 // create department
@@ -23,5 +22,3 @@ exports.getDepartments = (req, res) => {
       res.status(200).json({ success: true, departments })
     })
 }
-
-
