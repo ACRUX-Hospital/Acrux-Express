@@ -7,7 +7,8 @@ import Local_IP from '../../../helpers/Local_IP'
 import { floor } from 'react-native-reanimated'
 
 
-const DepartmentScreen = () => {
+const DepartmentScreen = ({navigation}) => {
+
 
     const [departments, setDepartments] = useState([])
     // console.log(departments)
@@ -27,19 +28,19 @@ const DepartmentScreen = () => {
         fetch(`${Local_IP}/getDep`, requestOptions)
             .then(response => response.json())
             .then(data => {
+                console.log("dd",data)
                 if (data.success) {
                     setDepartments(data.departments)
                 }
             });
     }
-    // console.log(departments)
     return (
 
         <View >
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={departments}
-                renderItem={({ item }) => <DepartmentCard department={item} />}
+                renderItem={({ item }) => <DepartmentCard navigation ={navigation} department={item} />}
                 keyExtractor={(item, index) => index.toString()}
             />
         </View>

@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Tabs from './Tabs'
 import Signup from '../Screens/LogInSignUp/signUp'
+import DoctorDepartmentScreen from '../Screens/DoctorDepartmentScreen/DoctorDepartment'
+
 import DepartmentScreen from '../Screens/DepartmentScreen/DepartmentScreen'
 import { connect } from "react-redux"
 const Stack = createStackNavigator();
@@ -16,6 +18,7 @@ const Stacks = ({ currentUser }) => {
                     headerShown: false,
                 }} />
                 <Stack.Screen name='Signup' component={Signup} />
+                <Stack.Screen name='DoctorDepartment' component={DoctorDepartmentScreen} />
             </Stack.Navigator>
 
         </NavigationContainer>

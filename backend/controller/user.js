@@ -44,7 +44,6 @@ exports.signin = async (req, res) => {
 
         const token = await jwt.sign({ _id: user._id }, process.env.secret);
     
-        // res.send(token)
         res.header("token", token).json({
             sucess: true,
             user,
