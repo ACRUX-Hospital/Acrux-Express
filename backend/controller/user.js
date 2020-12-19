@@ -47,6 +47,7 @@ exports.signin = async (req, res) => {
         // res.send(token)
         res.header("token", token).json({
             sucess: true,
+            user,
             token: token
         })
 
@@ -55,15 +56,13 @@ exports.signin = async (req, res) => {
 
 
 exports.auth =  (req, res) => {
-    //console.log(req.user)
+    console.log('here',req.user)
     if (req.user) {
       res.json({
         id: req.user._id,
         name: req.user.name,
         password: req.user.password,
         email: req.user.email,
-        bloodType:req.user.bloodType,
-        image:req.user.image,
         phoneNumber:req.user.email,
         role:req.body.role
       })

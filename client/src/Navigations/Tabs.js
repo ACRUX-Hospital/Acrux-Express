@@ -9,11 +9,14 @@ import ArtIcons from 'react-native-vector-icons/AntDesign'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-
+import { connect } from 'react-redux';
+import ProfileScreen from '../Screens/ProfileScreen/ProfileScreen'
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
+import ChatListScreen from "../Screens/Chat/chatList"
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({currentUser}) => {
     return (
 
         <Tab.Navigator
@@ -55,7 +58,7 @@ const Tabs = () => {
             />
             <Tab.Screen
                 name="Inbox"
-                component={Chat}
+                component={ChatListScreen}
                 options={{
                     tabBarLabel: 'Inbox',
                     tabBarIcon: ({color}) => (
@@ -64,7 +67,21 @@ const Tabs = () => {
                     
                 }}
             />
-            <Tab.Screen
+            {
+                currentUser?
+                <Tab.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                    tabBarLabel: 'Profile',
+                    tabBarIcon: ({color}) => (
+                        <SimpleLineIcons name="user" size={25} color={color} />
+                      )
+                    
+                }}
+            />
+                :
+                <Tab.Screen
                 name="Login"
                 component={Login}
                 options={{
@@ -75,10 +92,16 @@ const Tabs = () => {
                     
                 }}
             />
+            }
+            
 
 
         </Tab.Navigator>
     )
 }
-
-export default Tabs
+const mapStateToProps=({user:{currentUser}})=>{
+    return{
+        currentUser
+    }
+}
+export default connect(mapStateToProps)(Tabs)
