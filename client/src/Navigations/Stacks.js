@@ -4,21 +4,28 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Tabs from './Tabs'
 import Signup from '../Screens/LogInSignUp/signUp'
 import DepartmentScreen from '../Screens/DepartmentScreen/DepartmentScreen'
-
+import { connect } from "react-redux"
 const Stack = createStackNavigator();
 
-const Stacks = () => {
+const Stacks = ({ currentUser }) => {
+    console.log("currnetUser", currentUser)
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name='home'  component={Tabs} options={{
+                <Stack.Screen name='home' component={Tabs} options={{
                     headerShown: false,
                 }} />
-                <Stack.Screen name='Signup' component={Signup}  />
+                <Stack.Screen name='Signup' component={Signup} />
             </Stack.Navigator>
 
         </NavigationContainer>
     )
 }
 
-export default Stacks
+const mapStateToProps = ({ user: { currentUser } }) => {
+    return {
+        currentUser
+    }
+}
+
+export default connect(mapStateToProps)(Stacks)

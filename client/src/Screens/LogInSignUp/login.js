@@ -5,31 +5,34 @@ import {
   StyleSheet
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { setUser } from '../../Redux/User/userActions'
+import { connect } from 'react-redux'
+import Local_IP from '../../../helpers/Local_IP'
 
 
-const Login = (props) => {
+const Login = ({ navigation, setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
 
 
-  const sendCred = async (props) => {
-    fetch("http://localhost:5000/signin", {
+  const sendCred = async () => {
+    const obj = {email,password}
+    fetch(`${Local_IP}/signin`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
       },
-      body: JSON.stringify({
-        "email": email,
-        "password": password
-      })
+      body: JSON.stringify(obj)
     })
       .then(res => res.json())
       .then(async (data) => {
-        console.log("ccc", data)
+        // console.log("ccc", data)
         try {
           console.log("ccc", data)
           await AsyncStorage.setItem('login', data.token)
-          props.navigation.replace("home")
+          setUser(data.user)
+          navigation.replace("home")
         } catch (e) {
           console.log("error ")
         }
@@ -57,13 +60,13 @@ const Login = (props) => {
         />
         <Button
           mode="contained"
-          onPress={() => sendCred(props)}>
+          onPress={() => sendCred()}>
           Login
       </Button>
-      <Button
+        <Button
           mode="contained"
-          style={{marginTop:5}}
-          onPress={() =>  props.navigation.navigate("Signup")}>
+          style={{ marginTop: 5 }}
+          onPress={() => navigation.navigate("Signup")}>
           Sign Up
       </Button>
       </View>
@@ -71,9 +74,15 @@ const Login = (props) => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (user) => dispatch(setUser(user))
+  }
+}
 
 
-export default Login;
+
+export default connect(null, mapDispatchToProps)(Login);
 
 const styles = StyleSheet.create({
   input: {
