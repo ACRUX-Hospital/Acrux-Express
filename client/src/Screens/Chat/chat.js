@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
+import { Button } from 'react-native-paper';
 import io from "socket.io-client";
-import { SafeAreaView, View, Text, Button, KeyboardAvoidingView, ScrollView } from "react-native"
+import { SafeAreaView, View,KeyboardAvoidingView, ScrollView,Icon } from "react-native"
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
-import Local_IP from '../../helpers/Local_IP'
+import Local_IP from '../../../helpers/Local_IP'
+import SendIcon from "react-native-vector-icons/Ionicons"
 // import{keyboardawarescrollview} from "react-native-keyboard-aware-scroll-view"
 export default function Chat() {
   const [messages, setMessages] = useState([])
@@ -78,7 +79,9 @@ export default function Chat() {
         style={{ flex: 1 }}
       // behavior="padding"
       >
-        <ScrollView ref={myScrollView}>
+        <ScrollView ref={myScrollView}
+        
+        >
 
           <View style={{ flex: 1 }}>
             {messages && messages.map((message, i) => {
@@ -96,13 +99,17 @@ export default function Chat() {
               value={message}
             />
           </View>
-          <View style={{ flex: 1, borderRadius: 30 }}>
-            <Button
+          <View style={{ flex: 1,alignItems:"center",paddingStart:0 ,margin:0,paddingTop:18}}>
+            {/* <Button
               onPress={handleSubmit}
               title="SEND"
               color="#841584"
               accessibilityLabel="Learn more about this purple button"
-            />
+            /> */}
+            {/* <Button  icon="send" onPress={handleSubmit}>
+            send
+            </Button> */}
+            <SendIcon name="ios-send-sharp" size={30} color="#1294f8"/>
           </View>
         </View>
       </KeyboardAvoidingView>
