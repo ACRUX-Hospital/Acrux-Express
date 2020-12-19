@@ -1,4 +1,7 @@
 const Department = require('../model/departmentSchema').Department;
+const Doctor = require('../model/doctorSchema').Doctor;
+
+
 
 // create department
 exports.createDep = (req, res) => {
@@ -22,3 +25,13 @@ exports.getDepartments = (req, res) => {
       res.status(200).json({ success: true, departments })
     })
 }
+
+exports.findDoctor=(req, res) => {
+  Doctor.find({ departmentID: req.body.departmentID })
+    .populate('departmentID')
+    .exec((err, doc) => {
+      if (err) return res.status(404).json({ success: false })
+      res.json(doc)
+    })
+};
+

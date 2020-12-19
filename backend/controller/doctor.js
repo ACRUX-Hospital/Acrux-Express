@@ -21,3 +21,4 @@ exports.FindAllDocById = (req, res) => {
       res.json({success: true,doctors})
     })
 }
+

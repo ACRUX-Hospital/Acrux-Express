@@ -27,6 +27,7 @@ const DepartmentScreen = () => {
         fetch(`${Local_IP}/getDep`, requestOptions)
             .then(response => response.json())
             .then(data => {
+                console.log("dd",data)
                 if (data.success) {
                     setDepartments(data.departments)
                 }

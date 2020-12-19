@@ -19,6 +19,7 @@ router.post('/createPat', Patient.createPat);
 //Department
 router.post('/createDep', Department.createDep);
 router.get('/getDep',Department.getDepartments)
+router.post('/getDoc',Department.findDoctor)
 
 
 module.exports = router;
