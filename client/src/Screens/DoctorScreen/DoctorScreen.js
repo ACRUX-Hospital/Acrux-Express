@@ -4,10 +4,10 @@ import { View, FlatList } from 'react-native'
 import DoctorCard from './DoctorCard'
 import Local_IP from '../../../helpers/Local_IP'
 
-import {connect} from "react-redux"
-import {setDoctor} from "../../Redux/Doctor/doctorAction"
-const DoctorScreen = ({doctorList,setDoctor}) => {
-    
+// import {connect} from "react-redux"
+// import {setDoctor} from "../../Redux/Doctor/doctorAction"
+const DoctorScreen = () => {
+    const [doctors, setDoctor] = useState([])
     
     useEffect(() => {
         getDoctors()
@@ -34,7 +34,7 @@ const DoctorScreen = ({doctorList,setDoctor}) => {
     <View>
         <FlatList
                 showsVerticalScrollIndicator={false}
-                data={doctorList}
+                data={doctors}
                 renderItem={({ item }) => <DoctorCard doctor={item} />}
                 keyExtractor={(item, index) => index.toString()}
             />
@@ -42,14 +42,14 @@ const DoctorScreen = ({doctorList,setDoctor}) => {
 
     )
 }
-mapStateToProps=({doctor:{doctorList}})=>{
-    return{
-        doctorList
-    }
-}
-mapDispatchToProps=(dispatch)=>{
-    return{
-        setDoctor:doctorList=>dispatch(setDoctor(doctorList))
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(DoctorScreen)
+// const mapStateToProps=({doctor:{doctorList}})=>{
+//     return{
+//         doctorList
+//     }
+// }
+// const mapDispatchToProps=(dispatch)=>{
+//     return{
+//         setDoctor:doctorList=>dispatch(setDoctor(doctorList))
+//     }
+// }
+export default DoctorScreen
