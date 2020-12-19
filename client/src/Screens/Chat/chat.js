@@ -60,7 +60,7 @@ export default function Chat() {
       socket.on("data", ({ messages }) => {
 
         setMessages(messages)
-        console.log("dataaaaaaa", messages)
+        // console.log("dataaaaaaa", messages)
       })
     }
     return () => {
