@@ -2,6 +2,9 @@ import React from 'react';
 import Login from './src/Screens/LogInSignUp/login'
 import Chat from "./src/Screens/Chat/chat"
 
+import { Provider } from 'react-redux';
+import store from "./src/Redux/store"
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -18,7 +21,7 @@ export default function App() {
   return (
 
 
-    <>
+    <Provider store={store}>
       <StatusBar barStyle="dark-content" />
       {/* <NavigationContainer>
         <Tap.Navigator>
@@ -29,7 +32,7 @@ export default function App() {
         </Tap.Navigator>
       </NavigationContainer> */}
       <Stacks />
-    </>
+    </Provider>
 
 
   );

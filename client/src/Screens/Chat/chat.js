@@ -109,7 +109,7 @@ export default function Chat() {
             {/* <Button  icon="send" onPress={handleSubmit}>
             send
             </Button> */}
-            <SendIcon name="ios-send-sharp" size={30} color="#1294f8"/>
+            <SendIcon name="ios-send-sharp" size={30} color="#1294f8" onPress={handleSubmit}/>
           </View>
         </View>
       </KeyboardAvoidingView>
