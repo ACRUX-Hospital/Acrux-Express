@@ -12,7 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { connect } from 'react-redux';
 import ProfileScreen from '../Screens/ProfileScreen/ProfileScreen'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
-
+import ChatListScreen from "../Screens/Chat/chatList"
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +58,7 @@ const Tabs = ({currentUser}) => {
             />
             <Tab.Screen
                 name="Inbox"
-                component={Chat}
+                component={ChatListScreen}
                 options={{
                     tabBarLabel: 'Inbox',
                     tabBarIcon: ({color}) => (

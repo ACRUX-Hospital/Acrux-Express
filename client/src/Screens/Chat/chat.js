@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-native-paper';
 import io from "socket.io-client";
-import { SafeAreaView, View,KeyboardAvoidingView, ScrollView,Icon } from "react-native"
+import { SafeAreaView, View, KeyboardAvoidingView, ScrollView, Icon } from "react-native"
 import { Input } from 'react-native-elements';
 import MessageBubble from "./oneChat"
 import Local_IP from '../../../helpers/Local_IP'
 import SendIcon from "react-native-vector-icons/Ionicons"
 // import{keyboardawarescrollview} from "react-native-keyboard-aware-scroll-view"
-export default function Chat() {
+import { connect } from "react-redux"
+
+
+function Chat({ route, currentUser}) {
+  const { doctorName } = route.params
+
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
   const [socket, setSocket] = useState(null)
-  const [room, setRoom] = useState('sec-room')
-
+  const [room, setRoom] = useState('')
+  console.log("dddddddddd", doctorName)
   const myScrollView = React.createRef()
   React.useEffect(() => {
+    setRoom(`${doctorName}-${currentUser}`)
 
     var newSocket = io.connect(`${Local_IP}`);
 
@@ -80,7 +86,7 @@ export default function Chat() {
       // behavior="padding"
       >
         <ScrollView ref={myScrollView}
-        
+
         >
 
           <View style={{ flex: 1 }}>
@@ -99,7 +105,7 @@ export default function Chat() {
               value={message}
             />
           </View>
-          <View style={{ flex: 1,alignItems:"center",paddingStart:0 ,margin:0,paddingTop:18}}>
+          <View style={{ flex: 1, alignItems: "center", paddingStart: 0, margin: 0, paddingTop: 18 }}>
             {/* <Button
               onPress={handleSubmit}
               title="SEND"
@@ -109,7 +115,7 @@ export default function Chat() {
             {/* <Button  icon="send" onPress={handleSubmit}>
             send
             </Button> */}
-            <SendIcon name="ios-send-sharp" size={30} color="#1294f8" onPress={handleSubmit}/>
+            <SendIcon name="ios-send-sharp" size={30} color="#1294f8" onPress={handleSubmit} />
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -117,3 +123,10 @@ export default function Chat() {
   );
 
 }
+
+const mapStateToProps=({user:{currentUser}})=>{
+  return{
+    currentUser
+  }
+}
+export default connect(mapStateToProps)(Chat)

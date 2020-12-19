@@ -7,8 +7,8 @@ import DoctorDepartmentScreen from '../Screens/DoctorDepartmentScreen/DoctorDepa
 
 import DepartmentScreen from '../Screens/DepartmentScreen/DepartmentScreen'
 import { connect } from "react-redux"
+import Chat from "../Screens/Chat/chat"
 const Stack = createStackNavigator();
-
 const Stacks = ({ currentUser }) => {
     console.log("currnetUser", currentUser)
     return (
@@ -18,6 +18,7 @@ const Stacks = ({ currentUser }) => {
                     headerShown: false,
                 }} />
                 <Stack.Screen name='Signup' component={Signup} />
+                <Stack.Screen name='Chat' component={Chat} />
                 <Stack.Screen name='DoctorDepartment' component={DoctorDepartmentScreen} />
             </Stack.Navigator>
 

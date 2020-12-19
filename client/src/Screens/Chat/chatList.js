@@ -1,12 +1,12 @@
 import React,{ useState,useEffect } from 'react'
 import { View, FlatList } from 'react-native'
 
-import DoctorCard from './DoctorCard'
+import ChatListItem from './ChatListItem'
 import Local_IP from '../../../helpers/Local_IP'
 
 import {connect} from "react-redux"
 import {setDoctor} from "../../Redux/Doctor/doctorAction"
-const DoctorScreen = ({doctorList,setDoctor}) => {
+const ChatListScreen = ({doctorList,setDoctor,navigation}) => {
     
     
     useEffect(() => {
@@ -31,11 +31,11 @@ const DoctorScreen = ({doctorList,setDoctor}) => {
             });
     }
     return(
-    <View>
+    <View >
         <FlatList
                 showsVerticalScrollIndicator={false}
                 data={doctorList}
-                renderItem={({ item }) => <DoctorCard doctor={item} />}
+                renderItem={({ item }) => <ChatListItem doctor={item} navigation={navigation} />}
                 keyExtractor={(item, index) => index.toString()}
             />
     </View>
@@ -52,4 +52,4 @@ mapDispatchToProps=(dispatch)=>{
         setDoctor:doctorList=>dispatch(setDoctor(doctorList))
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(DoctorScreen)
+export default connect(mapStateToProps,mapDispatchToProps)(ChatListScreen)
