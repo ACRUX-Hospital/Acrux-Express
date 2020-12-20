@@ -1,16 +1,21 @@
-import React,{ useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, FlatList } from 'react-native'
 
 import ChatListItem from './ChatListItem'
 import Local_IP from '../../../helpers/Local_IP'
 
-import {connect} from "react-redux"
-import {setDoctor} from "../../Redux/Doctor/doctorAction"
-const ChatListScreen = ({doctorList,setDoctor,navigation}) => {
-    
-    
-    useEffect(() => {
-        getDoctors()
+import { connect } from "react-redux"
+import { setDoctor } from "../../Redux/Doctor/doctorAction"
+
+const ChatListScreen = ({ doctorList, setDoctor, navigation, role }) => {
+
+
+    useEffect(async () => {
+        if (role === "Doctor") {
+            getpatients()
+        } else {
+             getDoctors()
+        }
     }, [])
 
     const getDoctors = () => {
@@ -30,26 +35,43 @@ const ChatListScreen = ({doctorList,setDoctor,navigation}) => {
                 }
             });
     }
-    return(
-    <View >
-        <FlatList
+    const getpatients = () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+        };
+        fetch(`${Local_IP}/getpatients`, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    setDoctor(data.patients)
+                }
+            });
+    }
+    return (
+        <View >
+            <FlatList
                 showsVerticalScrollIndicator={false}
                 data={doctorList}
                 renderItem={({ item }) => <ChatListItem doctor={item} navigation={navigation} />}
                 keyExtractor={(item, index) => index.toString()}
             />
-    </View>
+        </View>
 
     )
 }
-mapStateToProps=({doctor:{doctorList}})=>{
-    return{
-        doctorList
+const mapStateToProps = ({ doctor, user }) => {
+    return {
+        doctorList: doctor.doctorList,
+        role: user.role
     }
 }
-mapDispatchToProps=(dispatch)=>{
-    return{
-        setDoctor:doctorList=>dispatch(setDoctor(doctorList))
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setDoctor: doctorList => dispatch(setDoctor(doctorList))
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(ChatListScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatListScreen)
