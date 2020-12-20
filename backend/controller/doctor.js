@@ -1,5 +1,3 @@
-
-
 const Doctor = require('../model/doctorSchema').Doctor;
 
 // create doctor
@@ -23,6 +21,4 @@ exports.FindAllDocById = (req, res) => {
       res.json({success: true,doctors})
     })
 }
-
-
 
