@@ -23,6 +23,7 @@ const DoctorDepartmentScreen = ({route,navigation}) => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    console.log(data.doc)
                     setResult(data.doc)
                     console.log("fffffff",data.doc)
                 }
