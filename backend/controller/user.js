@@ -36,7 +36,7 @@ exports.signin = async (req, res) => {
     console.log(req.body)
 
     const user = await User.findOne({ email: req.body.email })
-    console.log(user)
+    // console.log('userr',user)
 
     if (user) {
         const validPassword = await bcrypt.compare(req.body.password, user.password);
@@ -55,15 +55,15 @@ exports.signin = async (req, res) => {
 
 
 exports.auth =  (req, res) => {
-    console.log('here',req.user)
+    // console.log('here',req.user)
     if (req.user) {
       res.json({
-        id: req.user._id,
+        _id: req.user._id,
         name: req.user.name,
         password: req.user.password,
         email: req.user.email,
         phoneNumber:req.user.email,
-        role:req.body.role
+        role:req.user.role
       })
     }
   }

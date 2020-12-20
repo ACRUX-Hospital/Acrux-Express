@@ -17,15 +17,19 @@ function Chat({ route, currentUser,doctorList,role }) {
   const [message, setMessage] = useState('')
   const [socket, setSocket] = useState(null)
   const [room, setRoom] = useState('')
-  console.log("dddddddddd", doctorName)
+  // console.log("dddddddddd", doctorName)
+  // console.log('Doctorroom',room)
+  // console.log('Patientroom',room)
   const myScrollView = React.createRef()
   React.useEffect(() => {
-    
+    // console.log('roomfadye',room)
     if(role==="Doctor"){
       setRoom(`${currentUser}-${doctorName}`)
-    }else{
+      
+    }else if(role==="Patient"){
 
       setRoom(`${doctorName}-${currentUser}`)
+      
     }
     console.log("doctorLIST",doctorList[0].userID.name)
 
@@ -136,7 +140,8 @@ function Chat({ route, currentUser,doctorList,role }) {
 const mapStateToProps = ({ user: { currentUser,role } ,doctor:{doctorList}}) => {
   return {
     currentUser,
-    doctorList
+    doctorList,
+    role
   }
 }
 export default connect(mapStateToProps)(Chat)

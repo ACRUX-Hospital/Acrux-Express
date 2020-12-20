@@ -29,8 +29,9 @@ const Login = ({ navigation, setUser }) => {
       .then(async (data) => {
         // console.log("ccc", data)
         try {
-          console.log("ccc", data)
+          // console.log("ccc", data.user)
           await AsyncStorage.setItem('login', data.token)
+          // console.log(data.user)
           setUser(data.user)
           navigation.replace("home")
         } catch (e) {

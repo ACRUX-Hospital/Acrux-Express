@@ -4,7 +4,7 @@ import styles from './styles'
 
 const DepartmentCard = ({ department,navigation}) => {
     // console.log(department)
-    console.log(navigation)
+    // console.log(navigation)
 
 
     return (
