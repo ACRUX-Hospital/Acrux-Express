@@ -21,6 +21,11 @@ const DepartmentCard = ({ department,navigation}) => {
             />
             {/* Name */}
             <Text
+                onPress={() => {
+                    navigation.navigate('DoctorDepartment', {
+                         itemId:department._id,
+                     });
+                 }}
                 style={styles.title}
             >{department.name} </Text>
             {/* Description */}
