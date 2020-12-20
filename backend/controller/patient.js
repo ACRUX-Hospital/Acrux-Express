@@ -15,3 +15,10 @@ exports.createPat = (req, res) => {
   })
 }
 
+exports.getpatients = (req, res) => {
+  Patient.find().populate('userID')
+    .exec((err, patients) => {
+      if (err) return res.status(404).json({ success: false })
+      res.json({success: true,patients})
+    })
+}

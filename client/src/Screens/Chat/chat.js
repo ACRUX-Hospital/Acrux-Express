@@ -10,7 +10,7 @@ import SendIcon from "react-native-vector-icons/Ionicons"
 import { connect } from "react-redux"
 
 
-function Chat({ route, currentUser}) {
+function Chat({ route, currentUser,doctorList,role }) {
   const { doctorName } = route.params
 
   const [messages, setMessages] = useState([])
@@ -20,7 +20,14 @@ function Chat({ route, currentUser}) {
   console.log("dddddddddd", doctorName)
   const myScrollView = React.createRef()
   React.useEffect(() => {
-    setRoom(`${doctorName}-${currentUser}`)
+    
+    if(role==="Doctor"){
+      setRoom(`${currentUser}-${doctorName}`)
+    }else{
+
+      setRoom(`${doctorName}-${currentUser}`)
+    }
+    console.log("doctorLIST",doctorList[0].userID.name)
 
     var newSocket = io.connect(`${Local_IP}`);
 
@@ -39,6 +46,7 @@ function Chat({ route, currentUser}) {
       socket.emit("messages", {
         room,
         message: message,
+        UserName: currentUser
       });
     }
     // myScrollView.scrollToEnd({animated: true})
@@ -85,14 +93,15 @@ function Chat({ route, currentUser}) {
         style={{ flex: 1 }}
       // behavior="padding"
       >
-        <ScrollView ref={myScrollView}
-
-        >
+        <ScrollView ref={myScrollView}>
 
           <View style={{ flex: 1 }}>
             {messages && messages.map((message, i) => {
-              {/* if() */ }
-              return <MessageBubble text={message.message} key={i} />
+              if (message.UserName === currentUser) {
+                return <MessageBubble text={message.message} key={i} />
+              } else {
+                return <MessageBubble mine text={message.message} key={i} />
+              }
             })}
           </View>
         </ScrollView>
@@ -124,9 +133,10 @@ function Chat({ route, currentUser}) {
 
 }
 
-const mapStateToProps=({user:{currentUser}})=>{
-  return{
-    currentUser
+const mapStateToProps = ({ user: { currentUser,role } ,doctor:{doctorList}}) => {
+  return {
+    currentUser,
+    doctorList
   }
 }
 export default connect(mapStateToProps)(Chat)

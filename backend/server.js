@@ -60,9 +60,9 @@ io.on('connection', (socket) => {
   })
 
 
-  socket.on('messages', async({ message, room }) => { // to get the data from front emit function
+  socket.on('messages', async({ message, room,UserName }) => { // to get the data from front emit function
     console.log(message, room)
-    let chat =new Chat({roomID:room,UserName:"asem",message})
+    let chat =new Chat({roomID:room, UserName,message})
     let chatObj=await chat.save()
     let roomName=await Chatroom.findOne({roomName:room})
     await Chatroom.updateOne({_id:roomName._id},{messages:[...roomName.messages,chatObj._id]})
