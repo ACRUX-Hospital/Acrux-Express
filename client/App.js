@@ -1,43 +1,25 @@
-import React from 'react';
-// import { StyleSheet } from 'react-native';
-import Home from './components/pages/home'
-import Login from './components/pages/login'
-import Signup from './components/pages/signUp'
-import Department from './components/pages/department'
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-const Stack = createStackNavigator();
+import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import store from "./src/Redux/store"
+import Stacks from './src/Navigations/Stacks'
+import { StatusBar } from 'react-native';
 
 
-export default function App() {
+const App = () => {
+
   return (
 
-    <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={Home}
-          />
-           <Stack.Screen
-            name="Signup"
-            component={Signup}
-          />
-           <Stack.Screen
-            name="Login"
-            component={Login}
-          />
-           <Stack.Screen
-            name="Department"
-            component={Department}
-          />
-        </Stack.Navigator>
 
-      </NavigationContainer>
+    <Provider store={store}>
+      <StatusBar barStyle="dark-content" />
+      
+      <Stacks />
+    </Provider>
 
 
   );
 }
 
 
+
+export default App
