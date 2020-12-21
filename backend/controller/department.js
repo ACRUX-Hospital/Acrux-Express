@@ -29,7 +29,7 @@ exports.getDepartments = (req, res) => {
 // get doctors by dep id
 exports.findDoctor=(req, res) => {
   Doctor.find({ departmentID: req.body.departmentID })
-    .populate('departmentID')
+    .populate('userID')
     .exec((err, doc) => {
       if (err) return res.status(404).json({ success: false })
       res.json({success: true,doc})

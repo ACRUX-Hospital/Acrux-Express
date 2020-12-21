@@ -23,8 +23,9 @@ const DoctorDepartmentScreen = ({route,navigation}) => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    setResult(data.result)
-                    console.log("fffffff",data)
+                    console.log(data.doc)
+                    setResult(data.doc)
+                    console.log("fffffff",data.doc)
                 }
             });
     }

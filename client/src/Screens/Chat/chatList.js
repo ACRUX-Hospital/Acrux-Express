@@ -10,12 +10,15 @@ import { setDoctor } from "../../Redux/Doctor/doctorAction"
 const ChatListScreen = ({ doctorList, setDoctor, navigation, role }) => {
 
 
-    useEffect(async () => {
+    useEffect( () => {
+        console.log('role',role)
         if (role === "Doctor") {
-            getpatients()
-        } else {
+            getPatients()
+        } else if(role === 'Patient') {
              getDoctors()
         }
+
+        console.log('clean up')
     }, [])
 
     const getDoctors = () => {
@@ -35,7 +38,7 @@ const ChatListScreen = ({ doctorList, setDoctor, navigation, role }) => {
                 }
             });
     }
-    const getpatients = () => {
+    const getPatients = () => {
         const requestOptions = {
             method: 'GET',
             headers: {
@@ -43,10 +46,12 @@ const ChatListScreen = ({ doctorList, setDoctor, navigation, role }) => {
                 Accept: 'application/json'
             },
         };
+        console.log("hhhhhhhh")
         fetch(`${Local_IP}/getpatients`, requestOptions)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    console.log(data.patients)
                     setDoctor(data.patients)
                 }
             });
