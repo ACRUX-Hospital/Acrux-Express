@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../Screens/HomeScreen/HomeScreen'
 import DoctorScreen from '../Screens/DoctorScreen/DoctorScreen'
 import DepartmentScreen from '../Screens/DepartmentScreen/DepartmentScreen'
@@ -16,23 +16,23 @@ import ChatListScreen from "../Screens/Chat/chatList"
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = ({currentUser}) => {
+const Tabs = ({ currentUser }) => {
     return (
 
         <Tab.Navigator
             tabBarOptions={{
                 // activeTintColor: '#f15454',
                 activeTintColor: '#1294f8',
-              }}
+            }}
         >
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}
                 options={{
                     tabBarLabel: 'Home',
-                    tabBarIcon: ({color}) => (
+                    tabBarIcon: ({ color }) => (
                         <ArtIcons name="home" size={25} color={color} />
-                      )
+                    )
                 }}
             />
             <Tab.Screen
@@ -40,9 +40,9 @@ const Tabs = ({currentUser}) => {
                 component={DepartmentScreen}
                 options={{
                     tabBarLabel: 'Departments',
-                    tabBarIcon: ({color}) => (
+                    tabBarIcon: ({ color }) => (
                         <FontAwesome name="hospital-o" size={25} color={color} />
-                      )
+                    )
                 }}
             />
             <Tab.Screen
@@ -50,57 +50,63 @@ const Tabs = ({currentUser}) => {
                 component={DoctorScreen}
                 options={{
                     tabBarLabel: 'Doctor',
-                    tabBarIcon: ({color}) => (
+                    tabBarIcon: ({ color }) => (
                         <Fontisto name="doctor" size={25} color={color} />
-                      )
-                    
-                }}
-            />
-            <Tab.Screen
-                name="Inbox"
-                component={ChatListScreen}
-                options={{
-                    tabBarLabel: 'Inbox',
-                    tabBarIcon: ({color}) => (
-                        <MaterialIcons name="inbox" size={25} color={color} />
-                      )
-                    
+                    )
+
                 }}
             />
             {
-                currentUser?
-                <Tab.Screen
-                name="Profile"
-                component={ProfileScreen}
-                options={{
-                    tabBarLabel: 'Profile',
-                    tabBarIcon: ({color}) => (
-                        <SimpleLineIcons name="user" size={25} color={color} />
-                      )
-                    
-                }}
-            />
-                :
-                <Tab.Screen
-                name="Login"
-                component={Login}
-                options={{
-                    tabBarLabel: 'Login',
-                    tabBarIcon: ({color}) => (
-                        <MaterialIcons name="login" size={25} color={color} />
-                      )
-                    
-                }}
-            />
+                currentUser ?
+
+                    <Tab.Screen
+                        name="Inbox"
+                        component={ChatListScreen}
+                        options={{
+                            tabBarLabel: 'Inbox',
+                            tabBarIcon: ({ color }) => (
+                                <MaterialIcons name="inbox" size={25} color={color} />
+                            )
+
+                        }}
+                    />
+                    :
+                    <></>
             }
-            
+            {
+                currentUser ?
+                    <Tab.Screen
+                        name="Profile"
+                        component={ProfileScreen}
+                        options={{
+                            tabBarLabel: 'Profile',
+                            tabBarIcon: ({ color }) => (
+                                <SimpleLineIcons name="user" size={25} color={color} />
+                            )
+
+                        }}
+                    />
+                    :
+                    <Tab.Screen
+                        name="Login"
+                        component={Login}
+                        options={{
+                            tabBarLabel: 'Login',
+                            tabBarIcon: ({ color }) => (
+                                <MaterialIcons name="login" size={25} color={color} />
+                            )
+
+                        }}
+                    />
+            }
+
 
 
         </Tab.Navigator>
     )
 }
-const mapStateToProps=({user:{currentUser}})=>{
-    return{
+const mapStateToProps = ({ user: { currentUser } }) => {
+    return {
         currentUser
     }
 }
