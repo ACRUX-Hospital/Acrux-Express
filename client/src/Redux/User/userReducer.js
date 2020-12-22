@@ -11,6 +11,7 @@ const INITAIL_STATE = {
 const userReducer = (state = INITAIL_STATE, action) => {
     switch (action.type) {
         case userActionTypes.SET_CURRENT_USER:
+            // console.log('redux',action.payload)
             return {
                 ...state,
                 currentUser: action.payload.name,

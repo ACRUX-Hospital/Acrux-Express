@@ -5,11 +5,12 @@ import { connect } from "react-redux"
 import { setUser } from "../../Redux/User/userActions"
 import AsyncStorage from '@react-native-community/async-storage'
 import Local_IP from '../../../helpers/Local_IP'
+import {setDoctor} from "../../Redux/Doctor/doctorAction"
 
-
-const HomeScreen = ({ setUser, currentUser }) => {
+const HomeScreen = ({ setUser, currentUser,setDoctor }) => {
     const handleLogOut = () => {
         setUser("")
+        setDoctor([])
         AsyncStorage.removeItem("login")
     }
 
@@ -65,7 +66,8 @@ const mapStateToProps = ({ user: { currentUser } }) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        setUser: user => dispatch(setUser(user))
+        setUser: user => dispatch(setUser(user)),
+        setDoctor: user => dispatch(setDoctor(user))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

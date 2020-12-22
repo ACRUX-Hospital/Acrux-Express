@@ -4,8 +4,10 @@ import { View, FlatList } from 'react-native'
 import DoctorCard from './DoctorCard'
 import Local_IP from '../../../helpers/Local_IP'
 
+// import {connect} from "react-redux"
+// import {setDoctor} from "../../Redux/Doctor/doctorAction"
 const DoctorScreen = () => {
-    const [doctors, setDoctors] = useState([])
+    const [doctors, setDoctor] = useState([])
     
     useEffect(() => {
         getDoctors()
@@ -24,7 +26,7 @@ const DoctorScreen = () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    setDoctors(data.doctors)
+                    setDoctor(data.doctors)
                 }
             });
     }
@@ -40,5 +42,14 @@ const DoctorScreen = () => {
 
     )
 }
-
+// const mapStateToProps=({doctor:{doctorList}})=>{
+//     return{
+//         doctorList
+//     }
+// }
+// const mapDispatchToProps=(dispatch)=>{
+//     return{
+//         setDoctor:doctorList=>dispatch(setDoctor(doctorList))
+//     }
+// }
 export default DoctorScreen

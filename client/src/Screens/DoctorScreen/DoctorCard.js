@@ -3,7 +3,7 @@ import { View,Text, Image } from 'react-native'
 import styles from './styles'
 
 const DoctorCard = ({ doctor }) => {
-    // console.log(doctor)
+    console.log('card',doctor)
     return (
         <View style={styles.container}>
             <Image
