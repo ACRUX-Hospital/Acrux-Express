@@ -10,12 +10,6 @@
  - Send message to all users to donate blood for emergency
  - Send notification for users
 
-## Team
-- **Scrum Master**: [Moumen Hanbali](https://github.com/Moumenh)
-- **Co-Leader**: [Israa kittaneh](https://github.com/israakittaneh)
-- [Asem Nouri](https://github.com/asemnouri) 
-- [Shaima Ihdoosh](https://github.com/shaima96) 
-
 ## Technologies used
 - [React Native](https://reactnative.dev/docs/getting-started) - For the frontend
 - [Material UI](https://material-ui.com/) - User Interface Framework
@@ -44,3 +38,8 @@
    ```
    npm start
    ```
+## Team
+- **Scrum Master**: [Moumen Hanbali](https://github.com/Moumenh)
+- **Co-Leader**: [Israa kittaneh](https://github.com/israakittaneh)
+- [Asem Nouri](https://github.com/asemnouri) 
+- [Shaima Ihdoosh](https://github.com/shaima96) 
