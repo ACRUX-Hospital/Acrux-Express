@@ -1,7 +1,8 @@
 # Acrux-Express
-> ACRUX-Hospital: A mobile app. this app help Hospital ,Doctors ,Patients ,normal people to communicate easier with  each other.
+> ACRUX-Hospital: 
+ it is a Amobile app help Doctors ,Patients and normal people to communicate easier with  each other.
 ## Main User Stories:
- - can have an acoount in our website (doctor,patient ,normal user)
+ - can have an account in our website (doctor,patient,normal user)
  - patinet can book an appointment with doctor
  - doctor & patient can make chat with each other 
 
@@ -12,14 +13,14 @@
 ## Team
 - **Scrum Master**: [Moumen Hanbali](https://github.com/Moumenh)
 - **Co-Leader**: [Israa kittaneh](https://github.com/israakittaneh)
--  [Asem Nouri](https://github.com/asemnouri) 
-- [Shaima Azmi](https://github.com/shaima96) 
+- [Asem Nouri](https://github.com/asemnouri) 
+- [Shaima Ihdoosh](https://github.com/shaima96) 
 
 ## Technologies used
 - [React Native](https://reactnative.dev/docs/getting-started) - For the frontend
 - [Material UI](https://material-ui.com/) - User Interface Framework
 - [Node.js](https://nodejs.org/) - for backend
-- [Soket.io](https://socket.io/)
+- [Socket.io](https://socket.io/)
 - [Express](https://expressjs.com/)
 - [Trello](https://trello.com/b/FFojNT3J/thesis-project)
 - [MongoDB](http://mongodb.com/) - For the database
