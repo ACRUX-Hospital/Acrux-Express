@@ -18,6 +18,7 @@
 - [React Native](https://reactnative.dev/docs/getting-started) - For the frontend
 - [Material UI](https://material-ui.com/) - User Interface Framework
 - [Node.js](https://nodejs.org/) - for backend
+- [Soket.io](https://socket.io/)
 - [Express](https://expressjs.com/)
 - [Trello](https://trello.com/b/FFojNT3J/thesis-project)
 - [MongoDB](http://mongodb.com/) - For the database
