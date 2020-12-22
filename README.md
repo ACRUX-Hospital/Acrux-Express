@@ -7,6 +7,7 @@
 
 # Future Features :
  - send message to all users to donate blood for emergency
+ - Notification for users
 
 ## Team
 - **Scrum Master**: [Moumen Hanbali](https://github.com/Moumenh)
