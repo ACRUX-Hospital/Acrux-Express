@@ -1,14 +1,14 @@
-# Acrux-Express
+
 # ACRUX-Hospital: 
- it is a mobile app that helps Doctors, Patients, and normal people to communicate easier with each other.
+ It is a mobile app that helps Doctors, Patients, and normal people to communicate easier with each other.
 ## Main User Stories:
- - can have an account in our website (doctor,patient,normal user)
- - patinet can book an appointment with doctor
- - doctor & patient can make chat with each other 
+ - Can have an account in our website (doctor,patient,normal user)
+ - The patinet can book an appointment with doctor
+ - The doctor & patient can make chat with each other 
 
 # Future Features :
- - send message to all users to donate blood for emergency
- - send notification for users
+ - Send message to all users to donate blood for emergency
+ - Send notification for users
 
 ## Team
 - **Scrum Master**: [Moumen Hanbali](https://github.com/Moumenh)
