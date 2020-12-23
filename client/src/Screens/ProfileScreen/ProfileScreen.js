@@ -1,16 +1,9 @@
-// import React from 'react'
-// import { View, Text } from 'react-native'
+import React from 'react'
+import { connect } from "react-redux"
+import { setUser } from "../../Redux/User/userActions"
+import { Button ,TouchableHighlight}  from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
-// const ProfileScreen = () => {
-//     return (
-//         <View>
-//             <Text> Profile Page </Text>
-//         </View>
-//     )
-// }
-
-// export default ProfileScreen
-import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
@@ -18,30 +11,49 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-
-export default class Profile extends Component {
-
-  render() {
+const ProfileScreen = ({ setUser, currentUser }) => {
+    
+    const handleLogOut = () => {
+        setUser("")
+        AsyncStorage.removeItem("login")
+    }
+   
     return (
-      <View style={styles.container}>
-          <View style={styles.header}></View>
-          <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
-          <View style={styles.body}>
-            <View style={styles.bodyContent}>
-              <Text style={styles.name}>Iman Kittaneh</Text>
-              <Text style={styles.info}>iman@gmail.com</Text>
-              <Text style={styles.description}>Phone Number</Text>
-              
-                         
-              {/* <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Opcion 2</Text> 
-              </TouchableOpacity> */}
-            </View>
-        </View>
-      </View>
-    );
-  }
+        <View style={styles.container}>
+                  <View style={styles.header}></View>
+                  <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+                 <View style={styles.body}>
+                   <View style={styles.bodyContent}>
+                     <Text style={styles.name}>{currentUser}</Text>
+                    <Text style={styles.info}></Text>
+                    <Text style={styles.info}></Text>
+                      
+                 {
+                currentUser ?
+                    // <Button style={{ marginTop: 20 }} onPress={handleLogOut} title="LOGOUT" />
+                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} >
+                    <Text style={styles.loginText}  onPress={handleLogOut}>LOGOUT</Text>
+                  </TouchableHighlight>
+                    :
+                    <></>
+                }
+                     
+                  </View>
+                </View>
+              </View>
+    )
 }
+const mapStateToProps = ({ user: { currentUser } }) => {
+    return {
+        currentUser
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUser: user => dispatch(setUser(user)),
+    }
+}
+
 
 const styles = StyleSheet.create({
   header:{
@@ -87,6 +99,18 @@ const styles = StyleSheet.create({
     color: "#696969",
     marginTop:10,
     textAlign: 'center'
+  }, buttonContainer: {
+    marginTop:80,
+    height:55,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:350,
+    borderRadius:30,
+    backgroundColor: "#00BFFF",
   },
   
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)
