@@ -1,33 +1,25 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { NativeRouter, Route, Link } from "react-router-native";
-import {Login}  from './components/pages/login'
-import {Sigup}  from './components/pages/signUp'
-import {Home}  from './components/pages/home'
-import {Chat}  from './components/pages/chat'
+import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import store from "./src/Redux/store"
+import Stacks from './src/Navigations/Stacks'
+import { StatusBar } from 'react-native';
 
 
-export default function App() {
-  return (<NativeRouter>
-    <View style={styles.container}>
-      <Text>App</Text>
+const App = () => {
+
+  return (
+
+
+    <Provider store={store}>
+      <StatusBar barStyle="dark-content" />
       
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/sigup" component={Sigup} />
-        <Route path="/chat" component={Chat} />
-        </View>
+      <Stacks />
+    </Provider>
 
-      </NativeRouter>
-    
+
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
+
+
+export default App

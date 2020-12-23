@@ -1,10 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const User = require('../model/userSchema').User;
+
+
 exports.signup = async (req, res) => {
-
-
     const isEmailExsist = await User.findOne({ email: req.body.email })
     if (isEmailExsist) return res.status(400).send("email already exist")
     const salt = await bcrypt.genSalt(10)
@@ -15,15 +14,13 @@ exports.signup = async (req, res) => {
         email: req.body.email,
         password: hashPassword,
         phoneNumber: req.body.phoneNumber,
-        image:req.body.image,
-        bloodType:req.body.bloodType
-
+        role: req.body.role,
     });
 
     try {
 
         const savedUser = await user.save();
-        const token = await jwt.sign({ _id: user._id }, process.env.TOKEN);
+        const token = await jwt.sign({ _id: user._id }, process.env.secret);
         res.header("login", token)
         res.json({ token, userId: savedUser._id })
 
@@ -35,38 +32,38 @@ exports.signup = async (req, res) => {
 
 }
 
-exports.signin =  async(req, res) => {
-   
-   const user = await User.findOne({ email: req.body.email })
-   
-   if(user){
+exports.signin = async (req, res) => {
+    console.log(req.body)
+
+    const user = await User.findOne({ email: req.body.email })
+    // console.log('userr',user)
+
+    if (user) {
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        if (!validPassword) return res.status(400).send("password is wrong");
+
+        const token = await jwt.sign({ _id: user._id }, process.env.secret);
     
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-   // console.log(validPassword)
-     if (!validPassword) return res.status(400).send("password is wrong");
+        res.header("token", token).json({
+            sucess: true,
+            user,
+            token: token
+        })
 
-     const token = await jwt.sign({ _id: user._id }, process.env.TOKEN);
-     res.send( token)
-    console.log('token >>',token)
-    res.header("token", token).json({
-        sucess: true,
-        token: token
-      })
-
-   }
+    }
 }
 
+
 exports.auth =  (req, res) => {
-    //console.log(req.user)
+    // console.log('here',req.user)
     if (req.user) {
       res.json({
-        id: req.user._id,
+        _id: req.user._id,
         name: req.user.name,
         password: req.user.password,
         email: req.user.email,
-        bloodType:req.user.bloodType,
-        image:req.user.image,
-        phoneNumber:req.user.email
+        phoneNumber:req.user.email,
+        role:req.user.role
       })
     }
   }
