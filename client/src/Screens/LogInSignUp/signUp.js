@@ -1,10 +1,20 @@
+
 import React, { useState } from 'react';
-import { Button, TextInput } from 'react-native-paper';
-import {
-  StyleSheet, View, Text
-} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { setUser } from '../../Redux/User/userActions'
+import { connect } from 'react-redux'
 import Local_IP from '../../../helpers/Local_IP'
+
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  TouchableHighlight,
+  Image,
+  Alert
+} from 'react-native';
 
 const Signup = (props) => {
 
@@ -39,71 +49,109 @@ const Signup = (props) => {
         }
       })
   }
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder='name'
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        value={name}
-        onChangeText={(text) => { setName(text) }}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Password'
-        secureTextEntry={true}
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        value={password}
-        onChangeText={(text) => { setPassword(text) }}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Email'
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        onChangeText={(text) => { setEmail(text) }}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder='Phone Number'
-        autoCapitalize="none"
-        placeholderTextColor='white'
-        value={phoneNumber}
-        onChangeText={(text) => { setPhone(text) }}
-      />
-      <Button
-        mode="contained"
-        onPress={() => sendCred(props)}>
-        signup
-      </Button>
-      <Text
-        onPress={() => props.navigation.replace("Login")}
-      >already have a account ?</Text>
-    </View>
-  );
-};
+  
+  
+    return (
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/message/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+            placeholder='name'
+            autoCapitalize="none"
+            value={name}
+            onChangeText={(text) => { setName(text) }}
+              />
+        </View>
+        
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+            placeholder='Email'
+             autoCapitalize="none"
+            onChangeText={(text) => { setEmail(text) }}
+            />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              placeholder="Password"
+              secureTextEntry={true}
+              underlineColorAndroid='transparent'
+              value={password}
+            onChangeText={(text) => { setPassword(text) }}
+            />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              placeholder='Phone Number'
+               autoCapitalize="none"
+               value={phoneNumber}
+               onChangeText={(text) => { setPhone(text) }}
+            />
+        </View>
 
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} >
+          <Text style={styles.loginText}  onPress={() => sendCred(props)}>Register</Text>
+        </TouchableHighlight>
 
+        
 
-export default Signup;
+      
+      </View>
+    );
+  }
+ 
+    export default Signup;
+    
 
 const styles = StyleSheet.create({
-  input: {
-    width: 350,
-    height: 55,
-    backgroundColor: '#42A5F5',
-    margin: 10,
-    padding: 8,
-    color: 'white',
-    borderRadius: 14,
-    fontSize: 18,
-    fontWeight: '500',
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#DCDCDC',
+  },
+  inputContainer: {
+      borderBottomColor: '#F5FCFF',
+      backgroundColor: '#FFFFFF',
+      borderRadius:30,
+      borderBottomWidth: 1,
+      width:250,
+      height:45,
+      marginBottom:20,
+      flexDirection: 'row',
+      alignItems:'center',
+      
+  },
+  inputs:{
+      height:45,
+      marginLeft:16,
+      borderBottomColor: '#FFFFFF',
+      flex:1,
+      
+  },
+  inputIcon:{
+    width:30,
+    height:30,
+    marginLeft:15,
+    justifyContent: 'center'
+  },
+  buttonContainer: {
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+  },
+  loginButton: {
+    backgroundColor: "#00b5ec",
+  },
+  loginText: {
+    color: 'white',
   }
-})
+});
+
+                    
