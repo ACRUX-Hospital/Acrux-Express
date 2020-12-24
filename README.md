@@ -1,7 +1,6 @@
 
 # ACRUX-Hospital: 
  It is a mobile app that helps Doctors, Patients, and normal people to communicate easier with each other.
-## Heroku Link:
 ## Main User Stories:
  - The user can have an account in our website (doctor,patient ,normal user)
  - The patinet can book an appointment with doctor
